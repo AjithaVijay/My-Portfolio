@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f8f7f4;
+            --white: #ffffff;
+            --ink: #1a1a1a;
+            --muted: #6b7280;
+            --border: #e5e2dc;
+            --accent: #2563eb;
+            --accent-light: #eef3fd;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', sans-serif;
+            --display: 'Syne', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 48px;
+            background: rgba(248, 247, 244, 0.88);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-size: 32px;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color .15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            padding: 8px 20px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity .15s;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.85;
+        }
+
+        #hero {
+            padding: 160px 48px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-left h1 {
+            font-family: var(--display);
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 20px;
+        }
+
+        .hero-left p {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.75;
+            margin-bottom: 36px;
+            max-width: 400px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 11px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .15s;
+        }
+
+        .btn-blue {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-blue:hover {
+            opacity: 0.85;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            border-color: #aaa;
+        }
+
+        .hero-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+        }
+
+        .hero-card-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-key {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .info-val {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #DCFCE7;
+            color: #166534;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* SECTIONS */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .section-num {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        h2 {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .skill-row {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+        }
+
+        .skill-row-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* PROJECTS */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-item {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px 32px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: start;
+            transition: border-color .15s;
+        }
+
+        .project-item:hover {
+            border-color: var(--accent);
+        }
+
+        .project-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .project-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .project-link {
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .tl-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 32px;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tl-item:last-child {
+            border-bottom: none;
+        }
+
+        .tl-date {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            padding-top: 3px;
+        }
+
+        .tl-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .tl-org {
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .tl-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        #contact {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 48px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-inner {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 56px 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-left h2 {
+            margin-bottom: 12px;
+        }
+
+        .contact-left p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: border-color .15s;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 48px;
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .reveal {
+            opacity: 1;
+            transform: none;
+            transition: opacity .5s ease, transform .5s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 14px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            #hero {
+                grid-template-columns: 1fr;
+                padding: 120px 20px 60px;
+                gap: 40px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+
+            .tl-item {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .contact-inner {
+                grid-template-columns: 1fr;
+                padding: 36px 24px;
+            }
+
+            #contact {
+                padding: 60px 20px;
+            }
+
+            footer {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">Ajitha.dev</a>
+        <ul class="nav-links">
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="mailto:ajithaajitha1559@gmail.com" class="nav-cta">Get in touch</a>
+    </nav>
+
+    <div id="hero">
+        <div class="hero-left reveal">
+            <h1>Hi, I'm Ajitha Vijayabaskar</h1>
+            <p>CSE student at University College of Engineering - Pattukottai, learning full-stack web development. I
+                build things with HTML, CSS and Javascript - and I'm looking for my first internship</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-blue">See my work</a>
+                <a href="https://github.com/AjithaVijay" target="_blank" class="btn btn-ghost">Github</a>
+            </div>
+        </div>
+
+        <div class="hero-card reveal">
+            <div class="hero-card-label">Quick info</div>
+            <div class="info-row">
+                <span class="info-key">College</span>
+                <span class="info-val">UCE Pattukottai</span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Batch</span>
+                <span class="info-val">2024-2028</span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">GPA</span>
+                <span class="info-val">8.0+ (No arrears)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Status</span>
+                <span class="info-val"><span class="badge">Open to Internships</span></span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">Focus</span>
+                <span class="info-val">Full Stack Web Dev</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section reveal" id="skills">
+        <div class="section-header">
+            <span class="section-num">01</span>
+            <h2>Skills</h2>
+        </div>
+        <div class="skills-list">
+            <div class="skill-row">
+                <div class="skill-row-title">Frontend</div>
+                <div class="tags">
+                    <span class="tag">HTML5</span>
+                    <span class="tag">CSS3</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">DOM API</span>
+                    <span class="tag">Responsive Design</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-row-title">Languages</div>
+                <div class="tags">
+                    <span class="tag">C</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-row-title">Tools</div>
+                <div class="tags">
+                    <span class="tag">Git</span>
+                    <span class="tag">Github</span>
+                    <span class="tag">VS Code</span>
+                    <span class="tag">Chrome Devtools</span>
+                </div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-row-title">Currently Learning</div>
+                <div class="tags">
+                    <span class="tag">React.js</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section reveal" id="projects">
+        <div class="section-header">
+            <span class="section-num">02</span>
+            <h2>Projects</h2>
+        </div>
+        <div class="projects-list">
+            <div class="project-item">
+                <div>
+                    <div class="project-name">Validation Form</div>
+                    <div class="project-desc">A real-time password strength indicator that evaluates input on every
+                        keystroke using the onkeyup event. Displays Weak, Medium, Strong feedback instantly as the user
+                        types.</div>
+                    <div class="tags" style="margin-bottom: 14px;">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <a href="https://github.com/AjithaVijay/validation-form" target="_blank" class="project-link">View on Github..</a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">Contact Form with Validation</div>
+                    <div class="project-desc">A registration form with client-side validation using javascript - checks
+                        name length, phone number format(+91,10digits), password strength via regex(uppercase,
+                        lowercase, number, symbol) and confirm password match. built without any library.</div>
+                    <div class="tags" style="margin-bottom: 14px;">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <a href="https://github.com/AjithaVijay/contact-form-validation" target="_blank" class="project-link">View on Github..</a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">This Portfolio</div>
+                    <div class="project-desc">Designed and coded from scratch. Clean layout, scroll animations, and
+                        fully no frameworks used.</div>
+                    <div class="tags" style="margin-bottom: 14px;">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Vanilla JS</span>
+                    </div>
+                    <a href="https://github.com/AjithaVijay/portfolio" target="_blank" class="project-link">View on Github..</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section reveal" id="education">
+        <div class="section-header">
+            <span class="section-num">03</span>
+            <h2>Education & Activities</h2>
+        </div>
+        <div class="timeline">
+
+            <div class="tl-item">
+                <div class="tl-date">2024 - 2028</div>
+                <div>
+                    <div class="tl-title">B.E. Computer Science and Engineering</div>
+                    <div class="tl-org">UCE Pattukottai - Anna University</div>
+                    <div class="tl-desc">GPA 8.0+ with no arrears.</div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-date">2024 - present</div>
+                <div>
+                    <div class="tl-title">NSS volunteer</div>
+                    <div class="tl-org">National Service Scheme - UCE Pattukottai</div>
+                    <div class="tl-desc">Active member - Community outreach, event coordination, teamwork.</div>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-date">2024</div>
+                <div>
+                    <div class="tl-title">1st Place - Treasure Hunt</div>
+                    <div class="tl-org">University-level Competition</div>
+                    <div class="tl-desc">Won first place. Required quick thinking, logical reasoning, and teamwork under
+                        time pressure.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contact">
+        <div class="contact-inner reveal">
+            <div class="contact-left">
+                <h2>Get in touch</h2>
+                <p style="margin-top: 12px;">I'm looking for internship opportunities where I can contribute and learn.
+                    If you're hiring, reach out.</p>
+            </div>
+            <div class="contact-links">
+                <a href="mailto:ajithaajitha1559@gmail.com" class="contact-link">📧 ajithaajitha1559@gmail.com</a>
+                <a href="https://github.com/AjithaVijay" target="_blank" class="contact-link">👾 Github</a>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Ajitha Vijayabaskar . CSE 2024-2028 . UCE Pattukottai
+    </footer>
+
+    <script>
+        const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        document.querySelector('#hero .reveal').classList.add('visible');
+        document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+    </script>
+</body>
+
+</html>
